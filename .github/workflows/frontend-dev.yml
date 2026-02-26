@@ -2,7 +2,7 @@ name: Deploy Frontend to Dev
 
 on:
   push:
-    branches: [ "main" ]
+    branches: [ "main" ] #потом
   workflow_dispatch:
 
 jobs:
@@ -19,7 +19,9 @@ jobs:
           cache: 'npm'
 
       - name: Install dependencies
-        run: npm install
+        run: |
+          cd ./frontend
+          npm install
 
       - name: Build application
         run: |

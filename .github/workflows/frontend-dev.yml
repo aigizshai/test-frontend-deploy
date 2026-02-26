@@ -30,6 +30,17 @@ jobs:
       - name: Build application
         run: npm run build
 
+      - name: Prepare target directory
+        uses: appleboy/ssh-action@v1.0.3
+        with:
+          host: ${{ secrets.SSH_DEV_HOST }}
+          username: ${{ secrets.SSH_DEV_USER }}
+          key: ${{ secrets.SSH_DEV_KEY }}
+          script: |
+            sudo rm -rf /var/www/frontend-pioneer
+            sudo mkdir -p /var/www/frontend-pioneer
+            sudo chown $USER:$USER /var/www/frontend-pioneer
+      
       - name: Deploy via SCP
         uses: appleboy/scp-action@v0.1.7
         with:
